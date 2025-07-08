@@ -1,1 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Freelancing App</title>
+  </head>
+  <body>
+    <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: #f4f4f9;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    nav {
+      background: #333;
+      color: white;
+      padding: 0.5rem 2rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      margin: 0.5rem;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background: white;
+      left: 0;
+      bottom: -5px;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    nav a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    .search-box input {
+      padding: 0.5rem 2rem 0.5rem 2.5rem;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      width: 300px;
+      outline: none;
+    }
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 15px;
+      font-size: 16px;
+      color: #888;
+    }
+    .not-found {
+      text-align: center;
+      font-weight: bold;
+      color: red;
+      margin-top: 1rem;
+    }
+    .hero {
+      text-align: center;
+      padding: 2rem;
+      background: #e3f2fd;
+    }
+    .section {
+      padding: 2rem;
+    }
+    .courses, .jobs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .card button {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background-color: #4a90e2;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .card button:hover {
+      background-color: #357ab8;
+    }
+    .ads {
+      background: #fff3cd;
+      padding: 1rem;
+      margin: 2rem auto;
+      text-align: center;
+      border-radius: 8px;
+      max-width: 90%;
+      font-weight: bold;
+      color: #856404;
+    }
+    .form-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .form-container input, .form-container textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .form-container button {
+      background: #4a90e2;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .form-container button:hover {
+      background: #357ab8;
+    }
+    .popup {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #d4edda;
+      color: #155724;
+      padding: 1rem 2rem;
+      border: 1px solid #c3e6cb;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .footer-column {
+      flex: 1;
+      padding: 0.5rem;
+      min-width: 200px;
+    }
+    .footer-column a {
+      color: #ccc;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .copyright {
+      width: 100%;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FreelanceFinder</h1>
+    <p>Discovering Opportunities, Unlocking Potential</p>
+  </header>
+  <nav>
+    <a href="#courses">Courses</a>
+    <a href="#jobs">Jobs</a>
+  </nav>
 
+  <div class="search-box">
+    <input type="text" id="mainSearch" placeholder="Search site..." onkeypress="navigateSearch(event)">
+  </div>
+  <p id="notFoundMsg" class="not-found" style="display:none;">Not Found</p>
+
+  <section class="hero">
+    <h2>Start Your Freelance Journey Today</h2>
+    <p>Learn skills, connect with jobs, and grow your career from anywhere.</p>
+  </section>
+
+  <section class="ads">🔔 Google Ad: Learn Web Development in 30 Days – Enroll Now for Free!</section>
+
+  <section id="courses" class="section">
+    <h2>Popular Courses</h2>
+    <div class="courses">
+      <div class="card"><h3>Web Development</h3><p>HTML, CSS, JavaScript, React</p><button>Apply</button></div>
+      <div class="card"><h3>Data Science</h3><p>Python, Pandas, ML, SQL</p><button>Apply</button></div>
+      <div class="card"><h3>Digital Marketing</h3><p>SEO, Google Ads, SMM</p><button>Apply</button></div>
+      <div class="card"><h3>Graphic Design</h3><p>Photoshop, Illustrator, Figma</p><button>Apply</button></div>
+    </div>
+  </section>
+
+  <section id="jobs" class="section">
+    <h2>Jobs Based on Courses</h2>
+    <div class="jobs">
+      <div class="card"><h3>Frontend Developer</h3><p>Eligibility: Web Dev</p><button>Apply</button></div>
+      <div class="card"><h3>Backend Developer</h3><p>Eligibility: Web Dev + Node.js</p><button>Apply</button></div>
+      <div class="card"><h3>Python Developer</h3><p>Eligibility: Python course</p><button>Apply</button></div>
+      <div class="card"><h3>Content Creator</h3><p>Eligibility: Portfolio</p><button>Apply</button></div>
+      <div class="card"><h3>Marketing</h3><p>Eligibility: Digital Marketing</p><button>Apply</button></div>
+      <div class="card"><h3>Social Marketing</h3><p>Eligibility: SMM course</p><button>Apply</button></div>
+      <div class="card"><h3>HR</h3><p>Eligibility: Any degree</p><button>Apply</button></div>
+      <div class="card"><h3>AWS</h3><p>Eligibility: AWS Certified</p><button>Apply</button></div>
+      <div class="card"><h3>Oracle</h3><p>Eligibility: Oracle DB skills</p><button>Apply</button></div>
+      <div class="card"><h3>Software Testing</h3><p>Eligibility: Testing course</p><button>Apply</button></div>
+      <div class="card"><h3>Circuit Debugging</h3><p>Eligibility: ECE students</p><button>Apply</button></div>
+      <div class="card"><h3>Analog Circuit Designing</h3><p>Eligibility: VLSI students</p><button>Apply</button></div>
+      <div class="card"><h3>IC Designer</h3><p>Eligibility: VLSI</p><button>Apply</button></div>
+      <div class="card"><h3>Embedded Engineer</h3><p>Eligibility: Embedded Systems</p><button>Apply</button></div>
+      <div class="card"><h3>Software Engineer</h3><p>Eligibility: CS/IT graduates</p><button>Apply</button></div>
+      <div class="card"><h3>Data Entry</h3><p>Eligibility: Basic skills</p><button>Apply</button></div>
+      <div class="card"><h3>Video Editing</h3><p>Eligibility: Editing skills</p><button>Apply</button></div>
+      <div class="card"><h3>Blogs Creator</h3><p>Eligibility: Writing skills</p><button>Apply</button></div>
+    </div>
+  </section>
+    <div class="copyright">
+      <p>&copy; 2025 FreelanceFinder. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function navigateSearch(event) {
+      if (event.key === 'Enter') {
+        const query = event.target.value.toLowerCase();
+        const msg = document.getElementById('notFoundMsg');
+        if (document.body.innerText.toLowerCase().includes(query)) {
+          location.href = query.includes('course') ? '#courses' : '#jobs';
+          msg.style.display = 'none';
+        } else {
+          msg.style.display = 'block';
+        }
+      }
+    }
+    function showPopup() {
+      const popup = document.getElementById('popup');
+      popup.style.display = 'block';
+      setTimeout(() => popup.style.display = 'none', 3000);
+      return false;
+    }
+    function validateLogin() {
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPass').value;
+      if (!email.includes('@') || pass.length < 5) {
+        alert('Enter valid email and password.');
+        return false;
+      }
+      const loginPopup = document.getElementById('loginPopup');
+      loginPopup.style.display = 'block';
+      setTimeout(() => loginPopup.style.display = 'none', 3000);
+      return false;
+    }
+      </script>
+</body>
+</html>
